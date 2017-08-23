@@ -35,7 +35,7 @@
 
         <div class="col-md-6">
 <h3>Sign In</h3>
-            <form action="#" method="post">
+            <form action="{{ route('signin') }}" method="post">
                 <div class="form-group">
                     <label for="email">Email </label>
                     <input class="form-control" type="text" name="email" id="email"/>
@@ -43,11 +43,13 @@
 
 
                 <div class="form-group">
-                    <label for="Password">Password </label>
-                    <input class="form-control" type="password" name="Password" id="Password"/>
+                    <label for="password">Password </label>
+                    <input class="form-control" type="password" name="password" id="Password"/>
                 </div>
 
                 <input type="submit" class="btn btn-primary" value="submit"/>
+
+                <input type="hidden" name="_token" value="{{ \Illuminate\Support\Facades\Session::token() }}">
 
             </form>
         </div>

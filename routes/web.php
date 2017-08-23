@@ -17,9 +17,18 @@ Route::group(['middleware'=>['web']], function(){
     Route::get('/', function () {
         return view('welcome');
     });
+    Route::get('/dashboard', [
+        'uses' => 'UserController@getDashBoard',
+        'as' => 'dashboard'
+    ]);
 
     Route::post('/signup',[
         'uses'=>'UserController@postSignUp',
         'as' => 'signup'
+    ]);
+
+    Route::post('/signin',[
+        'uses'=>'UserController@postSignIn',
+        'as' => 'signin'
     ]);
 });
