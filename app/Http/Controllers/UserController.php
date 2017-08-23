@@ -58,7 +58,4 @@ class UserController extends Controller{
 
     }
 
-    public function getDashBoard(){
-        return view('dashboard');
-    }
 }

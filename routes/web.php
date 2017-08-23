@@ -20,7 +20,7 @@ Route::group(['middleware'=>['web']], function(){
 
 
     Route::get('/dashboard', [
-        'uses' => 'UserController@getDashBoard',
+        'uses' => 'PostController@getDashBoard',
         'as' => 'dashboard',
         'middleware' => 'auth'
     ]);
@@ -33,5 +33,10 @@ Route::group(['middleware'=>['web']], function(){
     Route::post('/signin',[
         'uses'=>'UserController@postSignIn',
         'as' => 'signin'
+    ]);
+
+    Route::post('/createpost',[
+        'uses'=>'PostController@postCreatePost',
+        'as'=>'post.create'
     ]);
 });

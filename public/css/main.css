@@ -16,3 +16,12 @@
     color: #aaa;
     font-style: italic;
 }
+
+.success{
+    color: #25ff64;
+}
+
+.failed{
+    color: #ff101a;
+}
+
