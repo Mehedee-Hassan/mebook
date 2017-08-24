@@ -28,77 +28,70 @@
 
             @foreach($posts as $post)
             <article class="post">
-                <p>
+                <p class="post-para">
                    {{ $post->body }}
                 </p>
                 <div class="info">
                     By <b>{{ $post->user->name }}</b> on {{ $post->created_at }}
                 </div>
 
+                @if($post->user->id == \Illuminate\Support\Facades\Auth::user()->id)
                 <div class="update-post">
-                    <a href="#">Edit</a>
-                    <a href="#">Delete</a>
+                    <a href="#" class="edit">Edit</a>
+                    <a href="{{ route('post.delete',['post_id' => $post->id] ) }}">Delete</a>
                 </div>
+                @endif
+
                 <br/>
                 <div class="interaction">
                     <a href="#">Like</a>
                 </div>
+                <input type="hidden" value="{{ $post->id }}" id="post-id"/>
+
 
 
             </article>
 
             @endforeach
 
-            <article class="post">
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                    proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                </p>
-                <div class="info">
-                    By <b>Max</b> on 12 Feb 2016s
-                </div>
-
-                <div class="update-post">
-                    <a href="#">Edit</a>
-                    <a href="#">Delete</a>
-                </div>
-                <br/>
-                <div class="interaction">
-                    <a href="#">Like</a>
-                </div>
-
-
-            </article>
-            <article class="post">
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                    proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                </p>
-                <div class="info">
-                    By <b>Max</b> on 12 Feb 2016s
-                </div>
-
-                <div class="interaction">
-                    <a href="#">Edit</a>
-                    <a href="#">Delete</a>
-                </div>
-                <br/>
-                <div class="interaction">
-                    <a href="#">Like</a>
-                </div>
-
-
-            </article>
         </div>
     </section>
+
+
+    <div class="modal fade" tabindex="-1" role="dialog" id="edit-post-modal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Edit post</h4>
+                </div>
+                <form action="{{ route('post.update',['post_id'=>1]) }}" method="post">
+                <div class="modal-body">
+
+                        <div class="form-group">
+                            <textarea class="form-control" name="new-post" id="update-post-body" rows="5" ></textarea>
+                        </div>
+                        {{--<button type="submit" class="btn btn-primary"> Save </button>--}}
+                        <input type="hidden" value="{{ \Illuminate\Support\Facades\Session::token() }}" name="_token"/>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    {{--<button type="submit" class="btn btn-primary">Save changes</button>--}}
+                    <button type="submit" class="btn btn-primary" id="save-button"> Save </button>
+
+                </div>
+                    <input type="hidden" value="{{ \Illuminate\Support\Facades\Session::token() }}" name="_token" id="token"/>
+
+                </form>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <script>
+        var URL = '{{ route('post.update') }}';
+    </script>
+
 @endsection
 
 

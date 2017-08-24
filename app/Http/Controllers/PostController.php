@@ -11,12 +11,13 @@ namespace App\Http\Controllers;
 
 use App\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller{
 
 
     public function getDashBoard(){
-        $posts = Post::all();
+        $posts = Post::orderBy('created_at','desc')->get();
 
         return view('dashboard',['posts'=>$posts]);
     }
@@ -39,4 +40,30 @@ class PostController extends Controller{
 
         return redirect()->route('dashboard')->with(['message'=>$message, 'flag'=>$flag]);
     }
+
+
+    public function postDeletePost($post_id)
+    {
+
+        $post = Post::where('id', $post_id)->first();
+
+        if (Auth::user() == $post->user){
+            $post->delete();
+        }
+
+        return redirect()->route('dashboard')->with(['message' =>'successfully delete!!']);
+    }
+
+
+    public function postUpdatePost($post_id){
+
+    }
+
+
+    public function postLogout(){
+        Auth::logout();
+        return redirect()->route('dashboard')->with(['message' =>'Your friends are waiting ..']);
+
+    }
+
 }
