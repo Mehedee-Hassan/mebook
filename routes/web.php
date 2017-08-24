@@ -45,14 +45,15 @@ Route::group(['middleware'=>['web']], function(){
         'as'=>'logout'
     ]);
 
-    Route::post('/updatepost', function(\Illuminate\Http\Request $request){
+    Route::post('/updatepost',
+//        function(\Illuminate\Http\Request $request){
+//        return response()->json(['message' => $request['body'].' '.$request['postId']]);}
 
-        
-
-        return response()->json(['message' => $request['body'].' '.$request['postId']]);
-
-
-    })->name('post.update');
+         [
+             'uses' => 'PostController@postUpdatePost',
+             'middleware' => 'auth'
+         ]
+    )->name('post.update');
 
     Route::get('/deletepost/{post_id}',[
         'uses'=>'PostController@postDeletePost',

@@ -27,7 +27,7 @@
             <header><h3>Shared with you..</h3></header>
 
             @foreach($posts as $post)
-            <article class="post">
+            <article class="post" data-postid="{{ $post->id }}">
                 <p class="post-para">
                    {{ $post->body }}
                 </p>
@@ -65,31 +65,33 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title">Edit post</h4>
                 </div>
-                <form action="{{ route('post.update',['post_id'=>1]) }}" method="post">
                 <div class="modal-body">
+                    <form action="#" id="updateform" method="post">
 
                         <div class="form-group">
-                            <textarea class="form-control" name="new-post" id="update-post-body" rows="5" ></textarea>
+                            <textarea class="form-control"  id="update-post-body" rows="5" ></textarea>
                         </div>
                         {{--<button type="submit" class="btn btn-primary"> Save </button>--}}
-                        <input type="hidden" value="{{ \Illuminate\Support\Facades\Session::token() }}" name="_token"/>
+                        {{--<input type="hidden" value="{{ \Illuminate\Support\Facades\Session::token() }}" name="_token"/>--}}
 
+                    <input type="hidden" value="{{ \Illuminate\Support\Facades\Session::token() }}" name="_token" id="token"/>
+
+                    </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     {{--<button type="submit" class="btn btn-primary">Save changes</button>--}}
-                    <button type="submit" class="btn btn-primary" id="save-button"> Save </button>
+                    <button type="button" class="btn btn-primary" id="save-button"> Save </button>
 
                 </div>
-                    <input type="hidden" value="{{ \Illuminate\Support\Facades\Session::token() }}" name="_token" id="token"/>
 
-                </form>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
 
     <script>
         var URL = '{{ route('post.update') }}';
+        var token = '{{ \Illuminate\Support\Facades\Session::token() }}' ;
     </script>
 
 @endsection

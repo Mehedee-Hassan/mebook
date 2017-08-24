@@ -55,7 +55,17 @@ class PostController extends Controller{
     }
 
 
-    public function postUpdatePost($post_id){
+    public function postUpdatePost(Request $request){
+
+        $this->validate($request,[
+           'body' => 'required'
+        ]);
+
+        $post = Post::find($request['postId']);
+        $post->body = $request['body'];
+        $post->update();
+
+        return response()->json(['message' => $request['body'] , 'post_id'=>$request['postId'] ],200);
 
     }
 

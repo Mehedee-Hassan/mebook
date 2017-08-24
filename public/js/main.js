@@ -2,6 +2,9 @@
  * Created by mhr on 24-Aug-17.
  */
 
+var postId = -1;
+
+
 $('.interaction').on('click',function(){
     console.log('asdfsdfasdf');
 });
@@ -10,9 +13,13 @@ $('.post').find('.update-post').find('.edit').on('click',function(event){
     console.log('asdfsdfasdf');
 
     event.preventDefault();
+
+    var realBodyTag = $(this).parent().parent().find('.post-para');
     var body = $(this).parent().parent().find('.post-para').text();
 
-    console.log(body);
+    postId =$(this).parent().parent().attr('data-postid');
+
+    //console.log(body+ " "+postId);
 
     $('#update-post-body').val(body.trim());
 
@@ -20,26 +27,50 @@ $('.post').find('.update-post').find('.edit').on('click',function(event){
 
 
     //var URL = '/edit';
-    var postId = $(this).parent().parent().find('#post-id').val();
-    var token = $('#token').val();
 
 
-    console.log(postId+" "+token);
-
-    $('#save-button').on('click',function(e){
-        e.preventDefault();
-
-        console.log("== "+postId+" "+token+" "+URL);
-
-        $.ajax({
-            method: 'POST',
-            url :URL,
-            data : {body :body,postId:postId,_token:token}
-        }).done(function(msg){
-            console.log(msg['message']);
-        });
 
 
+    //console.log(postId+" "+token);
+
+
+
+});
+
+$('#save-button').on('click',function(e){
+    //e.preventDefault();
+    //e.stopPropagation();
+
+    var editedBody = $("#update-post-body").val();
+    console.log("== "+postId+" "+token+" "+URL+" "+editedBody);
+
+
+
+    $.ajax({
+        method: 'POST',
+        url :URL,
+
+        data : {body :$("#update-post-body").val(),postId:postId,_token:token},
+        success: function(result){
+
+            console.log(result['message']+" "+result['post_id']);
+
+
+
+            $('.post').each(function(index){
+
+
+                if($(this).attr('data-postid') === result['post_id']){
+                    $(this).find('.post-para').text(result['message']);
+
+                    console.log("== "+postId);
+
+                }
+
+            });
+
+        }
     });
+
 
 });
