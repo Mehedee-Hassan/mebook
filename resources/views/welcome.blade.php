@@ -28,7 +28,12 @@
                     <input class="form-control" type="password" name="password" id="password"/>
                 </div>
 
-                <input type="submit" class="btn btn-primary" value="Go"/>
+                {{--<input type="submit" class="btn btn-primary" value="Register"/>--}}
+
+                <button type="submit" class="btn btn-primary" aria-label="Left Align">
+                    <span class="glyphicon glyphicon-user" aria-hidden="true"> </span> Register
+                </button>
+
                 <input type="hidden" name="_token" value="{{ \Illuminate\Support\Facades\Session::token() }}">
 
             </form>
@@ -49,7 +54,12 @@
                     <input class="form-control" type="password" name="password" id="password"/>
                 </div>
 
-                <input type="submit" class="btn btn-primary" value="submit"/>
+                {{--<input type="submit" class="btn btn-primary" value="submit"/>--}}
+
+                <button type="submit" class="btn btn-primary" aria-label="Left Align">
+                    <span class="glyphicon glyphicon-log-in" aria-hidden="true"> </span> Login
+                </button>
+
 
                 <input type="hidden" name="_token" value="{{ \Illuminate\Support\Facades\Session::token() }}">
 

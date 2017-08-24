@@ -38,8 +38,7 @@ $('.post').find('.update-post').find('.edit').on('click',function(event){
 });
 
 $('#save-button').on('click',function(e){
-    //e.preventDefault();
-    //e.stopPropagation();
+
 
     var editedBody = $("#update-post-body").val();
     console.log("== "+postId+" "+token+" "+URL+" "+editedBody);

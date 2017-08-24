@@ -11,6 +11,10 @@ namespace App\Http\Controllers;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller{
 
@@ -57,5 +61,49 @@ class UserController extends Controller{
         return redirect()->back();
 
     }
+
+    public function getUserAccount(){
+
+        $user = Auth::user();
+        return view('account',['user'=>$user]);
+
+//        return redirect()->route('account')->with(['user'=>$user]);
+    }
+
+    public function postUpdateUserAvatar(Request $request){
+
+        $this->validate($request,[
+            'avatar'=>'required'
+        ]);
+
+        $user = Auth::user();
+        $file = $request->file('avatar');
+
+        $filename = $user->name."-".$user->id;
+
+        if ($file) {
+            Storage::disk('local')->put($filename, File::get($file));
+
+            $user->avatar = $filename;
+            $user->update();
+        }
+
+
+        return redirect()->route('user.account');
+    }
+
+
+    public function getImageUpdate(){
+
+        $user = Auth::user();
+        $filename = $user->avatar;
+
+
+        $file = Storage::disk('local')->get($filename);
+
+
+        return new Response($file, 200);
+    }
+
 
 }

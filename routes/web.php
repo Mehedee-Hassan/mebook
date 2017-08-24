@@ -60,4 +60,25 @@ Route::group(['middleware'=>['web']], function(){
         'as'=>'post.delete',
         'middleware' => 'auth'
     ]);
+
+
+    Route::get('/account',[
+        'uses'=>'UserController@getUserAccount',
+        'middleware' =>'auth',
+        'as' => 'user.account'
+    ]);
+
+    Route::get('/imageupdate',[
+        'uses'=>'UserController@getImageUpdate',
+        'middleware' =>'auth',
+        'as' => 'account.image'
+    ]);
+
+    Route::post('/updateavatar',[
+        'uses'=>'UserController@postUpdateUserAvatar',
+        'middleware' =>'auth',
+        'as' => 'update.avatar'
+    ]);
+
+
 });

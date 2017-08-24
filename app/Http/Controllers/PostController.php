@@ -76,4 +76,8 @@ class PostController extends Controller{
 
     }
 
+    public function getAcctount(){
+        return view('account');
+    }
+
 }
