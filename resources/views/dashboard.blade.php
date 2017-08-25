@@ -6,7 +6,7 @@
         @include('includes.message-block')
 
         <div class="col-md-6 col-md-offset-3">
-            <header><h3>Open up your mid...</h3></header>
+            <header><h3>Open up your mind...</h3></header>
             <form action="{{ route('post.create') }}" method="post">
                 <div class="form-group">
                     <textarea class="form-control" name="new-post" id="new-post" rows="5" placeholder="share with your friends.."></textarea>
