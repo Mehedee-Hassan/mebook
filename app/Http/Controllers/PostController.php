@@ -9,9 +9,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Like;
 use App\Post;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class PostController extends Controller{
 
@@ -80,4 +83,63 @@ class PostController extends Controller{
         return view('account');
     }
 
+
+    /**
+     * @param Request $request
+     */
+    public function incrementLike(Request $request){
+        $like = Like::where('post_id',$request['postId'])->first();
+//        Log::warning($like);
+
+        if ($like) {
+            Log::warning($request['postId']);
+            $numOfLikes = $like->likes;
+
+            $list = explode(',',$like->user_id_list);
+//
+            Log::warning("list explode:");
+            Log::warning($list);
+            Log::warning('list = '.$like->user_id_list);
+            Log::warning('likes = '.$like->likes);
+
+            if (!in_array($request['userId'],$list)){
+                $like->user_id_list = $like->user_id_list.','.$request['userId'];
+                $numOfLikes +=1;
+                Log::warning('added = '.$like->user_id_list );
+
+            }
+            else{
+                $numOfLikes -=1;
+
+                unset($list[array_search($request['userId'],$list)]);
+                Log::warning("deleted list:");
+                Log::warning($list);
+
+                $newlist = implode(',',$list);
+                $like->user_id_list = $newlist;
+                Log::warning($newlist);
+
+                Log::warning('deleted = '.$like->user_id_list );
+
+            }
+            $like->likes = $numOfLikes;
+//
+//
+            $like->update();
+
+
+        }
+        else{
+            Log::warning("no like".$request['userId']." p= ".$request['postId']);
+
+            $like =  new Like();
+            $like->user_id_list = $request['userId'];
+            $like->post_id = $request['postId'];
+            $like->likes = 1;
+            $like->save();
+        }
+
+        return response()->json(['likes' => $like->likes , 'post_id'=>$request['postId'] ],200);
+
+    }
 }

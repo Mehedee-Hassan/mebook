@@ -95,6 +95,7 @@ class UserController extends Controller{
 
     public function getImageUpdate(){
 
+
         $user = Auth::user();
         $filename = $user->avatar;
 

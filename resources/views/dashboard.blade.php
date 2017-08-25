@@ -35,16 +35,40 @@
                     By <b>{{ $post->user->name }}</b> on {{ $post->created_at }}
                 </div>
 
-                @if($post->user->id == \Illuminate\Support\Facades\Auth::user()->id)
                 <div class="update-post">
-                    <a href="#" class="edit">Edit</a>
-                    <a href="{{ route('post.delete',['post_id' => $post->id] ) }}">Delete</a>
+                    <a  class="btn red-color like-button" href="#"
+                        data-link="{{ route('incr.like') }}"
+                        data-postid="{{ $post->id }}"
+                        data-userid="{{ Auth::user()->id }}"
+                        data-token="{{ csrf_token() }}"
+                            >
+                        <span id="number_of_likes">
+                        @if($post->like)
+                         {{$post->like->likes}}
+                        @endif
+                        </span>
+                        <span class="glyphicon glyphicon-heart" aria-hidden="true"> </span>
+                        Like
+                    </a>
+
+                    @if($post->user->id == \Illuminate\Support\Facades\Auth::user()->id)
+
+                    <a href="#" class="edit btn green-turquoise">
+                        <span class="glyphicon glyphicon-edit" aria-hidden="true"> </span>
+                        Edit
+                    </a>
+                    <a class="delete btn green-orangered" href="{{ route('post.delete',['post_id' => $post->id] ) }}">
+                        <span class="glyphicon glyphicon-trash" aria-hidden="true"> </span>
+                        Delete
+                    </a>
+                    @endif
+
                 </div>
-                @endif
 
                 <br/>
                 <div class="interaction">
-                    <a href="#">Like</a>
+                    {{--<a href="#">Like</a>--}}
+
                 </div>
                 <input type="hidden" value="{{ $post->id }}" id="post-id"/>
 

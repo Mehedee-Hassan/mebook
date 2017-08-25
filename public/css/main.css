@@ -10,7 +10,7 @@
 .posts .post .update-post a{
     padding-left: 5px;
     padding-right: 10px;
-    border-left: 2px solid turquoise;
+    /*border-left: 2px solid turquoise;*/
 }
 .post .info{
     color: #aaa;
@@ -25,3 +25,28 @@
     color: #ff101a;
 }
 
+.red-color{
+    color: #ff101a;
+}
+
+.green-mediumspringgreen{
+    color:mediumspringgreen;
+}
+.green-turquoise{
+    color:turquoise;
+}
+.green-orange{
+    color:#ff6666;
+}
+.green-orangered{
+    color:orangered;
+}
+
+.like-button:visited,.like-button:active {
+    color: #ff101a;
+}
+
+.like-button:hover{
+    font-size: 110%;
+    font-weight: bold;
+}

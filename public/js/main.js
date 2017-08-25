@@ -73,3 +73,37 @@ $('#save-button').on('click',function(e){
 
 
 });
+
+$('.like-button').on('click',function(e){
+
+    var postid =$(this).attr('data-postid');
+    var url =$(this).attr('data-link');
+    var userid =$(this).attr('data-userid');
+    var token =$(this).attr('data-token');
+    console.log(postid+" "+url+" "+userid);
+
+    var like_field = $(this).find("#number_of_likes");
+
+    $.ajax({
+        method: 'POST',
+        url :url,
+
+        data : {userId:userid,postId:postid,_token:token},
+        success: function(result){
+            console.log("success"+result['likes']);
+
+            $(like_field).text(result['likes']);
+        }
+        ,
+        failed: function(result){
+            console.log("failed");
+
+        }
+
+    });
+
+
+});
+
+
+

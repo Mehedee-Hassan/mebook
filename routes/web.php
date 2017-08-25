@@ -81,4 +81,11 @@ Route::group(['middleware'=>['web']], function(){
     ]);
 
 
+    Route::post('/incrementlike',[
+        'uses'=>'PostController@incrementLike',
+        'middleware' =>'auth',
+        'as' => 'incr.like'
+    ]);
+
+
 });
