@@ -142,7 +142,7 @@ $('.chat-name-list-element').on('click',function(e){
 
                 console.log(array1[i]+"  "+_fromuserid);
 
-                if (array1[i]['to_user_id'] ==userid ) {
+                if (array1[i]['from_user_id'] ==userid ) {
 
                     var htmltoadd = "<div class='speech-bubble-2'><section>"+array1[i]['message']+"</section></div>";
 
@@ -150,7 +150,7 @@ $('.chat-name-list-element').on('click',function(e){
 
                 }
 
-                if(array1[i]['from_user_id'] ==userid){
+                if(array1[i]['to_user_id'] ==userid){
                     var htmltoadd = "<div class='speech-bubble-1'><section>"+array1[i]['message']+"</section></div>";
 
                     $("#chat-messages-list").append(htmltoadd);
