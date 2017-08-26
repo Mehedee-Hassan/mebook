@@ -16,5 +16,9 @@ class User extends Model implements Authenticatable
     }
 
 
+    public function messages(){
+        return $this->hasMany('App\Message');
+    }
+
 
 }

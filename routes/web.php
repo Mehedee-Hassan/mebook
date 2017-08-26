@@ -87,5 +87,22 @@ Route::group(['middleware'=>['web']], function(){
         'as' => 'incr.like'
     ]);
 
+    Route::get('/chatbox',[
+        'uses'=>'UserController@getChatBox',
+        'middleware' =>'auth',
+        'as' => 'chat.box'
+    ]);
+    Route::post('/message',[
+        'uses'=>'UserController@getMessage',
+        'middleware' =>'auth',
+        'as' => 'user.message'
+    ]);
+
+    Route::post('/sendmessage',[
+        'uses'=>'UserController@sendMessage',
+        'middleware' =>'auth',
+        'as' => 'user.message.send'
+    ]);
+
 
 });

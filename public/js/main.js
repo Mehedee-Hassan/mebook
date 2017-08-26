@@ -3,7 +3,7 @@
  */
 
 var postId = -1;
-
+var current_chat_user_id = -1;
 
 $('.interaction').on('click',function(){
     console.log('asdfsdfasdf');
@@ -106,4 +106,99 @@ $('.like-button').on('click',function(e){
 });
 
 
+$('.chat-name-list-element').on('click',function(e){
 
+    var name = $(this).find('h3').text();
+    var name = name.trim();
+
+    console.log('clicked to username = '+name);
+    var url =$(this).attr('data-link');
+    var userid =$(this).attr('data-useridto');
+    var token =$(this).attr('data-token');
+    console.log(" "+url+" "+userid);
+
+    var like_field = $(this).find("#number_of_likes");
+
+    $('.to-user-name-title').text(name);
+
+
+    current_chat_user_id = userid;
+
+    $.ajax({
+        method: 'POST',
+        url :url,
+
+        data : {userId:userid,_token:token},
+        success: function(result){
+
+            console.log("success"+result['messages']);
+
+            var array1 = JSON.parse(result['messages']);
+
+
+            $("#chat-messages-list").html("");
+
+            for (var i in array1){
+
+                console.log(array1[i]+"  "+_fromuserid);
+
+                if (array1[i]['to_user_id'] ==userid ) {
+
+                    var htmltoadd = "<div class='speech-bubble-2'><section>"+array1[i]['message']+"</section></div>";
+
+                    $("#chat-messages-list").append(htmltoadd);
+
+                }
+
+                if(array1[i]['from_user_id'] ==userid){
+                    var htmltoadd = "<div class='speech-bubble-1'><section>"+array1[i]['message']+"</section></div>";
+
+                    $("#chat-messages-list").append(htmltoadd);
+
+                }
+
+            }
+
+
+
+            //$('.to-user-name-title').text(result['tousername']);
+        }
+        ,
+        failed: function(result){
+            console.log("failed");
+
+        }
+
+    });
+
+});
+
+
+$('#message-send-button').on('click',function(){
+
+    var url =$(this).attr('data-link');
+    var userid =$(this).attr('data-useridto');
+    var token =$(this).attr('data-token');
+    var message = $('#type-message-box').val();
+
+
+    $.ajax({
+        method: 'POST',
+        url :url,
+
+        data : {fromUserId:userid,toUserId:current_chat_user_id, _token:token ,message:message},
+        success: function(result){
+            console.log(' == ',result['message']);
+
+            var htmltoadd = "<div class='speech-bubble-1'><section>"+result['message']+"</section></div>";
+
+            $("#chat-messages-list").append(htmltoadd);
+        }
+        ,
+        failed: function(result){
+
+        }
+
+    });
+
+});

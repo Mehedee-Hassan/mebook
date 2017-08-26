@@ -8,9 +8,11 @@
 namespace App\Http\Controllers;
 
 
+use App\Message;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Response;
@@ -106,5 +108,63 @@ class UserController extends Controller{
         return new Response($file, 200);
     }
 
+
+
+//    chat box
+    public function getChatBox(){
+        $users = User::all();
+        return view('chatbox')->with('users',$users);
+    }
+
+
+    public function getMessage(Request $request){
+        $fromuser = Auth::user();
+
+
+        Log::warning('|'.$request['userId'].'| |'.$fromuser->id.'|');
+
+        $messagelist = \App\Message::whereRaw('(to_user_id = ? and from_user_id = ?) or (to_user_id= ? and from_user_id = ?)'
+            ,array( $request['userId']  ,   $fromuser->id   ,   $fromuser->id   ,   $request['userId']))
+            ->orderby('created_at')->get()->toarray();
+
+        $messagearray = array();
+        Log::warning($messagelist);
+
+        foreach($messagelist as $melement){
+
+            Log::warning($melement);
+
+
+            $messagearrayt[]= array(
+                "id" => $melement['id'],
+                "from_user_id" => $melement['from_user_id'],
+                "message" => $melement['message'],
+                "to_user_id" => $melement['to_user_id'],
+            );
+        }
+
+        Log::warning("processed======");
+        Log::warning($messagelist);
+
+        return response()->json(['messages' => json_encode($messagelist) ],200);
+
+    }
+
+    public function sendMessage(Request $request){
+
+        Log::warning($request['message']);
+
+        $message = new Message();
+
+        $message->message = $request['message'];
+
+        $message->from_user_id = $request['fromUserId'];
+        $message->to_user_id = $request['toUserId'];
+
+        $message->save();
+
+        return response()->json(['message' => $request['message']],200);
+
+    }
 
 }
