@@ -159,22 +159,70 @@ $('.chat-name-list-element').on('click',function(e){
 
             }
 
+            $("#message-list-box").scrollTop(300);
 
-
+            //
+            //var $cont = $('#chat-messages-list');
+            //$cont[0].scrollTop = $cont[0].scrollHeight;
+            //
+            $("#message-list-box").scrollTop(function() { return this.scrollHeight; });
             //$('.to-user-name-title').text(result['tousername']);
         }
         ,
         failed: function(result){
             console.log("failed");
 
+
+            $("#message-list-boxt").scrollTop(1000);
         }
 
     });
 
+
+
 });
 
+$('#type-message-box').keyup(function(e) {
 
-$('#message-send-button').on('click',function(){
+    if (e.keyCode == 13) {
+
+
+        //$("#message-list-box").scrollTop(function() { return this.scrollHeight; });
+        var url =$(this).attr('data-link');
+        var userid =$(this).attr('data-useridfrom');
+        var token =$(this).attr('data-token');
+        var message = $('#type-message-box').val();
+
+
+        $.ajax({
+            method: 'POST',
+            url :url,
+
+            data : {fromUserId:userid,toUserId:current_chat_user_id, _token:token ,message:message},
+            success: function(result){
+                console.log(' == ',result['message']);
+
+                var htmltoadd = "<div class='speech-bubble-1'><section>"+result['message']+"</section></div>";
+
+                //$("#chat-messages-list").append(htmltoadd);
+                $("#message-list-box").scrollTop(function() { return this.scrollHeight; });
+
+            }
+            ,
+            failed: function(result){
+
+            }
+
+        });
+
+        $(this).val('');
+
+    }
+
+}).focus();
+
+
+$('#message-send-button').on('click',function(e){
 
     var url =$(this).attr('data-link');
     var userid =$(this).attr('data-useridto');
@@ -182,23 +230,25 @@ $('#message-send-button').on('click',function(){
     var message = $('#type-message-box').val();
 
 
-    $.ajax({
-        method: 'POST',
-        url :url,
-
-        data : {fromUserId:userid,toUserId:current_chat_user_id, _token:token ,message:message},
-        success: function(result){
-            console.log(' == ',result['message']);
-
-            var htmltoadd = "<div class='speech-bubble-1'><section>"+result['message']+"</section></div>";
-
-            $("#chat-messages-list").append(htmltoadd);
-        }
-        ,
-        failed: function(result){
-
-        }
-
-    });
+    //$.ajax({
+    //    method: 'POST',
+    //    url :url,
+    //
+    //    data : {fromUserId:userid,toUserId:current_chat_user_id, _token:token ,message:message},
+    //    success: function(result){
+    //        console.log(' == ',result['message']);
+    //
+    //        var htmltoadd = "<div class='speech-bubble-1'><section>"+result['message']+"</section></div>";
+    //
+    //        $("#chat-messages-list").append(htmltoadd);
+    //        $("#message-list-box").scrollTop(function() { return this.scrollHeight; });
+    //
+    //    }
+    //    ,
+    //    failed: function(result){
+    //
+    //    }
+    //
+    //});
 
 });

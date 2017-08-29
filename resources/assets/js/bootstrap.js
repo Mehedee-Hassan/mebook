@@ -44,3 +44,14 @@ window.axios.defaults.headers.common = {
 //     broadcaster: 'pusher',
 //     key: 'your-pusher-key'
 // });
+
+//import Echo from "laravel-echo"
+//
+//window.Pusher = require('pusher-js');
+//
+//window.Echo = new Echo({
+//    broadcaster: 'pusher',
+//    key: '744089ef5e0427c24efa',
+//    cluster: 'ap2',
+//    encrypted: true
+//});

@@ -76,11 +76,11 @@
     margin-right: 20px;
     margin-left: 0;
 
-    /*overflow: auto;*/
+    overflow: hidden;
 }
 
 #message-list-box{
-    overflow-y: auto;
+    overflow-y: scroll;
     margin: 0px;
     padding: 10px;
     height: 80%;
