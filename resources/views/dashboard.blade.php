@@ -3,7 +3,7 @@
 
 @section('content')
     <section class="row new-post">
-        @include('includes.message-block')
+        {{--@include('includes.message-block')--}}
 
         <div class="col-md-6 col-md-offset-3">
             <header><h3>Open up your mind...</h3></header>

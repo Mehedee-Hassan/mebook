@@ -36,8 +36,7 @@
                     {{--@else--}}
                         {{--<li class=""><a href="#"><sub><b class="red-color message-notification-cnt">1</b></sub><span style="font-size: 17px;" class="glyphicon glyphicon-envelope"></span></a></li>--}}
 
-                        <li><a href="#">
-
+                        <li><a href="{{ route('dashboard') }}">
                                 <span style="font-size: 17px;" class="glyphicon glyphicon-bell post-notification-cnt"></span>
                             </a>
                         </li>

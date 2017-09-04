@@ -17,6 +17,11 @@ use Illuminate\Support\Facades\Redis;
 Route::group(['middleware'=>['web']], function(){
 
     Route::get('/', function () {
+
+        if(\Illuminate\Support\Facades\Auth::user()){
+            return redirect("dashboard");
+        }
+
         return view('welcome');
     })->name('home');
 

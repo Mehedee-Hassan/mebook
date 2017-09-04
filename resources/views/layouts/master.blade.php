@@ -29,8 +29,10 @@
     </script>
     @yield('js-without-tag')
 
-
+    @if(Auth::user())
     <span id="user-data-saved" data-userid="{{ Auth::user()->id }}"></span>
+    @endif
+
     <script>
 
         var socket = io.connect('http://localhost:3000/');
