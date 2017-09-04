@@ -204,6 +204,38 @@ class UserController extends Controller{
     }
 
 
+ public function globalPostNotification(Request $request){
+
+
+        Log::warning($request['fromUserId']);
+
+        $message = new Message();
+
+        $message->message = $request['message'];
+
+        $message->from_user_id = $request['fromUserId'];
+        $message->to_user_id = $request['toUserId'];
+
+        $message->save();
+
+        // In Episode 4, we'll use Laravel's event broadcasting.
+
+        $data = [
+            'event' => 'ChatBox',
+            'data' => [
+                'user' => $request['fromUserId'],
+                'message' => $request['message']
+            ]
+        ];
+
+        Redis::publish('test-channel', json_encode($data));
+
+
+        return response()->json(['message' => $request['message']],200);
+
+    }
+
+
 
 
     public function testChat(){

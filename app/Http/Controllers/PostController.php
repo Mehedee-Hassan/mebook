@@ -15,6 +15,8 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Redis;
 
 class PostController extends Controller{
 
@@ -24,6 +26,8 @@ class PostController extends Controller{
 
         return view('dashboard',['posts'=>$posts]);
     }
+
+
 
     public function postCreatePost(Request $request){
 
@@ -41,7 +45,25 @@ class PostController extends Controller{
             $flag='success';
         }
 
+
+        $this->publishNotification(Auth::user()->id);
+
         return redirect()->route('dashboard')->with(['message'=>$message, 'flag'=>$flag]);
+    }
+
+
+
+    public function publishNotification($userid){
+
+        $data = [
+            'event' => 'NewPost',
+            'data' => [
+                'user' => $userid
+            ]
+        ];
+
+        Redis::publish('test-channel', json_encode($data));
+
     }
 
 

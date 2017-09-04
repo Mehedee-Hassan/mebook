@@ -36,7 +36,11 @@
                     {{--@else--}}
                         {{--<li class=""><a href="#"><sub><b class="red-color message-notification-cnt">1</b></sub><span style="font-size: 17px;" class="glyphicon glyphicon-envelope"></span></a></li>--}}
 
-                        <li><a href="#"><sub><b class="red-color">1</b></sub><span style="font-size: 17px;" class="glyphicon glyphicon-bell"></span></a></li>
+                        <li><a href="#">
+
+                                <span style="font-size: 17px;" class="glyphicon glyphicon-bell post-notification-cnt"></span>
+                            </a>
+                        </li>
 
                     <li class="dropdown">
 

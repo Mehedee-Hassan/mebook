@@ -30,30 +30,30 @@
     @yield('js-without-tag')
 
 
-
+    <span id="user-data-saved" data-userid="{{ Auth::user()->id }}"></span>
     <script>
 
-//        var socket = io.connect('http://localhost:3000/');
-//
-//        var globalmessageCount = 0;
-//
-//        socket.on('test-channel:ChatBox', function(data) {
-//
-//            console.log('channel '+data.message);
-//            console.log(data.user);
-//            console.log(_fromuserid);
-//            var id = $('#type-message-box').attr('data-useridfrom');
-//
-//            if(data.user == _fromuserid) {
-//
-//            }
-//            else {
-//                globalmessageCount += 1;
-//                $(".message-notification-cnt").text(""+globalmessageCount);
-//
-//            }
-//
-//        });
+        var socket = io.connect('http://localhost:3000/');
+
+        var globalmessageCount = 0;
+
+        socket.on('test-channel:NewPost', function(data) {
+
+            console.log('channel '+data.user);
+            console.log(data.user);
+            var _fromuserid = $("#user-data-saved").attr("data-userid");
+
+            if(data.user == _fromuserid) {
+
+            }
+            else {
+                globalmessageCount += 1;
+
+                $(".post-notification-cnt").html("<sub><b>"+globalmessageCount+"</b></sub>");
+                $(".post-notification-cnt").addClass("red-color");
+            }
+
+        });
 
 
     </script>
