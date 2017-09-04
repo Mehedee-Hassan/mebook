@@ -30,6 +30,36 @@
     @yield('js-without-tag')
 
 
+
+    <script>
+
+//        var socket = io.connect('http://localhost:3000/');
+//
+//        var globalmessageCount = 0;
+//
+//        socket.on('test-channel:ChatBox', function(data) {
+//
+//            console.log('channel '+data.message);
+//            console.log(data.user);
+//            console.log(_fromuserid);
+//            var id = $('#type-message-box').attr('data-useridfrom');
+//
+//            if(data.user == _fromuserid) {
+//
+//            }
+//            else {
+//                globalmessageCount += 1;
+//                $(".message-notification-cnt").text(""+globalmessageCount);
+//
+//            }
+//
+//        });
+
+
+    </script>
+
+
+
 </body>
 
 </html>

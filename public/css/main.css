@@ -242,3 +242,9 @@
     text-align: center;
     padding: 2px;
 }
+
+/*fonts*/
+
+.large-font{
+    font-size: 40px;
+}

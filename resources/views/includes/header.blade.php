@@ -34,7 +34,11 @@
                         {{--<li><a href="{{ url('/login') }}">Login</a></li>--}}
                         {{--<li><a href="{{ url('/register') }}">Register</a></li>--}}
                     {{--@else--}}
-                        <li class="dropdown">
+                        {{--<li class=""><a href="#"><sub><b class="red-color message-notification-cnt">1</b></sub><span style="font-size: 17px;" class="glyphicon glyphicon-envelope"></span></a></li>--}}
+
+                        <li><a href="#"><sub><b class="red-color">1</b></sub><span style="font-size: 17px;" class="glyphicon glyphicon-bell"></span></a></li>
+
+                    <li class="dropdown">
 
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" style="position:relative; padding-left:50px;">
                                 <img src="{{ route('account.image') }}"
@@ -42,8 +46,10 @@
                                 {{ Auth::user()->name }} <span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="{{ route('user.account') }}"><i class="fa fa-btn fa-user"></i>Accout</a></li>
-                                <li><a href="{{ route('logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
+                                <li><a href="{{ route('dashboard') }}"><span class="glyphicon glyphicon-home"></span>   <b class="fa fa-btn fa-user">   Home</b> </a></li>
+                                <li><a href="{{ route('chat.box') }}"><span class="glyphicon glyphicon-envelope"></span>   <b class="fa fa-btn fa-user">   Message</b> </a></li>
+                                <li><a href="{{ route('user.account') }}"><span class="glyphicon glyphicon-user"></span>   <b class="fa fa-btn fa-user">   Accout</b> </a></li>
+                                <li><a href="{{ route('logout') }}"><span class="glyphicon glyphicon-log-out"></span>  <b class="fa fa-btn fa-sign-out">  Logout</b></a></li>
                             </ul>
 
                         </li>

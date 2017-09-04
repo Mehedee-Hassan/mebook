@@ -204,6 +204,8 @@ class UserController extends Controller{
     }
 
 
+
+
     public function testChat(){
 
         return view('test');
@@ -211,4 +213,6 @@ class UserController extends Controller{
     public  function  fetchMessage2(){
 
     }
+
+
 }

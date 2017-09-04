@@ -94,6 +94,7 @@ Route::group(['middleware'=>['web']], function(){
         'middleware' =>'auth',
         'as' => 'chat.box'
     ]);
+
     Route::post('/message',[
         'uses'=>'UserController@getMessage',
         'middleware' =>'auth',
@@ -113,22 +114,13 @@ Route::group(['middleware'=>['web']], function(){
         'as' => 'testChat'
     ]);
 
-//
-//
-//    Route::post('/sendmessage2',[
-//        'uses'=>'UserController@sendMessage2',
-//        'as' => 'sendmessage2'
-//    ]);
 
     Route::get('/sendmessage2',[
         'uses'=>'UserController@sendMessage2',
         'as' => 'sendmessage2'
     ]);
 
-    Route::post('/fetchmessage2',[
-        'uses'=>'UserController@fetchMessage2',
-        'as' => 'fetchMessage2'
-    ]);
+
 
     Route::get('/testpusher',function(){
 
@@ -146,7 +138,8 @@ Route::group(['middleware'=>['web']], function(){
                 'username' => 'JohnDoe'
             ]
         ];
-        // In Episode 4, we'll use Laravel's event broadcasting.
+
+
         Redis::publish('test-channel', json_encode($data));
         return view('test');
     });
